@@ -1,0 +1,12 @@
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\test-0.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\Algorithms.exe.config
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\Algorithms.exe
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\Algorithms.pdb
+C:\Users\mlmsa\source\repos\Algorithms\obj\Debug\Algorithms.csproj.AssemblyReference.cache
+C:\Users\mlmsa\source\repos\Algorithms\obj\Debug\Algorithms.csproj.SuggestedBindingRedirects.cache
+C:\Users\mlmsa\source\repos\Algorithms\obj\Debug\Algorithms.csproj.CoreCompileInputs.cache
+C:\Users\mlmsa\source\repos\Algorithms\obj\Debug\Algorithms.exe
+C:\Users\mlmsa\source\repos\Algorithms\obj\Debug\Algorithms.pdb
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\input00.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\input11.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\input12.txt
