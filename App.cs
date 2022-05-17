@@ -20,7 +20,8 @@ namespace Algorithms
             //new UndirectedPath();
             //new ConnectedComponents();
             //new LargestComponents();
-            new ShortestPath();
+            //new ShortestPath();
+            new IslandCount();
             /* End of Algo */
 
             //new RoadsAndLibraries();
