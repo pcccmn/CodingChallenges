@@ -10,56 +10,71 @@ namespace Algorithms
     {
         private List<Dictionary<string, string>> edges = new List<Dictionary<string, string>>()
         {
-            new Dictionary<string, string>{{ "w","x"} },
-            new Dictionary<string, string>{{ "x","y"} },
-            new Dictionary<string, string>{{ "z","y"} },
-            new Dictionary<string, string>{{ "z","v"} },
-            new Dictionary<string, string>{{ "w","v"} },
+            new Dictionary<string, string>{{ "w","x" }},
+            new Dictionary<string, string>{{ "x","y" }},
+            new Dictionary<string, string>{{ "z","y" }},
+            new Dictionary<string, string>{{ "z","v" }},
+            new Dictionary<string, string>{{ "w","v" }},
         };
-        private Dictionary<int, int[]> graph = new Dictionary<int, int[]>();
-        private HashSet<int> visited = new HashSet<int>();
+
+        private Dictionary<string, HashSet<string>> graph = new Dictionary<string, HashSet<string>>();
+
+        private Dictionary<string, int> nodeCost = new Dictionary<string, int>();
+        private HashSet<string> visited = new HashSet<string>();
 
         public ShortestPath()
         {
-            graph[0] = new int[] { 8, 1, 5 };
-            graph[1] = new int[] { 0 };
-            graph[5] = new int[] { 0, 8 };
-            graph[8] = new int[] { 0, 5 };
-            graph[2] = new int[] { 3, 4 };
-            graph[3] = new int[] { 2, 4 };
-            graph[4] = new int[] { 3, 2 };
-
-            Dfs();
-        }
-
-        private void Dfs()
-        {
-            int count = 0;
-
-            foreach (var kvp in graph)
+            foreach (var edge in edges)
             {
-                var value = Recursion(kvp.Key);
+                var e = edge.ElementAt(0);
 
-                if (value > count)
-                    count = value;
+                if (!graph.ContainsKey(e.Key))
+                    graph[e.Key] = new HashSet<string>();
+                if (!graph.ContainsKey(e.Value))
+                    graph[e.Value] = new HashSet<string>();
+
+                graph[e.Key].Add(e.Value);
+                graph[e.Value].Add(e.Key);
             }
 
-            Console.WriteLine(count);
+            Bfs();
         }
 
-        private int Recursion(int key)
+        private void Bfs()
         {
-            if (visited.Contains(key))
-                return 0;
+            Queue<string> queue = new Queue<string>();
+            queue.Enqueue("w");
+            visited.Add("w");
+            nodeCost["w"] = 0; 
 
-            visited.Add(key);
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
 
-            int count = 1;
+                foreach (var neighbor in graph[node])
+                {
+                    if (visited.Contains(neighbor))
+                        continue;
 
-            foreach (var e in graph[key])
-                count += Recursion(e);
+                    visited.Add(neighbor);
 
-            return count;
+                    if (!nodeCost.ContainsKey(neighbor))
+                        nodeCost[neighbor] = nodeCost[node];
+
+                    nodeCost[neighbor] += 1;
+
+                    if (neighbor == "z")
+                    {
+                        Console.WriteLine("shortest distance is = " + nodeCost[neighbor]);
+                        return;
+                    }
+
+                    queue.Enqueue(neighbor);
+                }
+            }
+            
+            
         }
+
     }
 }
