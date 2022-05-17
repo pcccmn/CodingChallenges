@@ -21,7 +21,8 @@ namespace Algorithms
             //new ConnectedComponents();
             //new LargestComponents();
             //new ShortestPath();
-            new IslandCount();
+            //new IslandCount();
+            new MinIslandCount();
             /* End of Algo */
 
             //new RoadsAndLibraries();

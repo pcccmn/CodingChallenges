@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="MinIslandCount.cs" />
     <Compile Include="IslandCount.cs" />
     <Compile Include="ShortestPath.cs" />
     <Compile Include="LargestComponent.cs" />
