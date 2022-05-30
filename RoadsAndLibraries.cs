@@ -9,77 +9,147 @@ namespace Algorithms
 {
     public class RoadsAndLibraries
     {
-        public readonly Dictionary<int, bool> cityHasAccessToLibrary = new Dictionary<int, bool>();
-        public readonly Dictionary<int, List<int>> cityLinks = new Dictionary<int, List<int>>();
-        private bool isStartTimer;
-        private float timeElapsed; // ms
+        private static int q;
+        private static int n;
+        private static int m;
+        private static long cLib;
+        private static long cRoad;
+        private static List<List<int>> cities = new List<List<int>>();
+
+        private static Dictionary<int, List<int>> graphs = new Dictionary<int, List<int>>();
+        private static bool[] visited;
+        private static long totalCost = 0;
 
         public RoadsAndLibraries()
         {
-            isStartTimer = true;
-            StartTimer();
+            //ReadInputFromCode();
+            ReadInputFromFile();
+        }
 
-            List<string> list = File.ReadLines("test-0.txt").ToList();
+        private static void ReadInputFromCode()
+        {
+            n = 6;
+            m = 0;
+            cLib = 2;
+            cRoad = 5;
+            cities.Add(new List<int> { 1, 3 });
+            cities.Add(new List<int> { 3, 4 });
+            cities.Add(new List<int> { 2, 4 });
+            cities.Add(new List<int> { 1, 2 });
+            cities.Add(new List<int> { 2, 3 });
+            cities.Add(new List<int> { 5, 6 });
+        }
 
-            int q = int.Parse(list[0]);
-            int n = -1;
-            int m = -1;
-            int c_lib = -1;
-            int c_road = -1;
-            List<List<int>> cities = new List<List<int>>();
+        private static void ReadInputFromFile()
+        {
+            var queue = FileParser.Read("RoadsAndLibrariesIO/input-4.txt");
 
-            list.RemoveAt(0); // remove q;
+            q = int.Parse(queue.Dequeue()); // no use
 
-            for (int i = 0; i < q; i++)
+            var isNewSet = false;
+
+            while(queue.Count > 0)
             {
-                var arr = list[0].Split(' ');
+                var line = queue.Dequeue();
 
-                n = int.Parse(arr[0]);
-                c_lib = int.Parse(arr[2]);
-                c_road = int.Parse(arr[3]);
+                var split = line.Split(' ');
 
-                list.RemoveAt(0); // remove 4 digits
-
-                int maxRange = 0;
-                for (int j = 0; j < list.Count; j++)
+                if (split.Length == 4)
                 {
-                    if (list[(int)j].Split(' ').Length == 4)
+                    if (isNewSet)
                     {
-                        maxRange = j;
-                        break;
+                        Console.WriteLine(Calculate());
+                        isNewSet = false;
                     }
+                    cities.Clear();
 
-                    var arr2 = list[j].Split(' ');
-                    cities.Add(new List<int> { int.Parse(arr2[0]), int.Parse(arr2[1]) });
+                    n = int.Parse(split[0]);
+                    m = int.Parse(split[1]);
+                    cLib = int.Parse(split[2]);
+                    cRoad = int.Parse(split[3]);
                 }
+                else if (split.Length == 2)
+                {
+                    isNewSet = true;
 
-                list.RemoveRange(0, maxRange);
+                    var x = int.Parse(split[0]);
+                    var y = int.Parse(split[1]);
 
-                //Result.roadsAndLibraries(n, c_lib, c_road, cities);
-                //Result.Bfs(n, cities);
-                Solution();
+                    cities.Add(new List<int> { x, y });
 
-                cities.Clear();
+                    if (queue.Count == 0)
+                        Console.WriteLine(Calculate());
+                }
             }
-
-            isStartTimer = false;
-            Console.ReadKey();
         }
 
-        private async void StartTimer()
+        private static long Calculate()
         {
-            while (isStartTimer)
+            totalCost = 0;
+            graphs.Clear();
+
+            foreach (var city in cities)
             {
-                await Task.Delay(100);
-                timeElapsed += 100;
+                if (!graphs.ContainsKey(city[0]))
+                    graphs[city[0]] = new List<int>();
+
+                if (!graphs.ContainsKey(city[1]))
+                    graphs[city[1]] = new List<int>();
+
+                graphs[city[0]].Add(city[1]);
+                graphs[city[1]].Add(city[0]);
             }
 
-            Console.WriteLine($"Algorithm took {timeElapsed / 1000} seconds to complete"); // converting to con
+            for (int i = 1; i <= n; i++)
+                if (!graphs.ContainsKey(i))
+                    graphs[i] = new List<int>();
+
+            visited = new bool[graphs.Count+1];
+
+            for (int i = 1; i <= graphs.Count; i++)
+                visited[i] = false;
+
+            return Calculate2();
         }
-        
-        private void Solution()
+
+        private static long Calculate2()
         {
-            Console.WriteLine("To do..");
+            if (cLib <= cRoad)
+                return n * cLib;
+
+            for (int i = 1; i <= graphs.Count; i++)
+            {
+                if (Recursion(i))
+                {
+                    //Console.WriteLine($"building library at city {i}");
+                    totalCost += cLib;
+                }
+            }
+
+            return totalCost;
         }
+
+
+        private static bool Recursion(int node)
+        {
+            if (visited[node])
+                return false;
+
+            visited[node] = true;
+
+            foreach (var neighbor in graphs[node])
+            {
+                if (!visited[neighbor])
+                {
+                    //Console.WriteLine($"building road connecting to {neighbor}");
+                    totalCost += cRoad;
+                    Recursion(neighbor);
+                }
+            }
+
+            return true;
+        }
+
+        
     }
 }

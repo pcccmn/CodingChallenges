@@ -10,3 +10,8 @@ C:\Users\mlmsa\source\repos\Algorithms\obj\Debug\Algorithms.pdb
 C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\input00.txt
 C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\input11.txt
 C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\input12.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\RoadsAndLibrariesIO\input-0.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\RoadsAndLibrariesIO\input-1.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\RoadsAndLibrariesIO\input-2.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\RoadsAndLibrariesIO\input-3.txt
+C:\Users\mlmsa\source\repos\Algorithms\bin\Debug\RoadsAndLibrariesIO\input-4.txt

@@ -11,6 +11,7 @@ namespace Algorithms
     class App
     {
         private static CancellationTokenSource cts = new CancellationTokenSource();
+        public static float timeElapsed;
         public static void Main(string [] args)
         {
             StartTimer();
@@ -22,7 +23,8 @@ namespace Algorithms
             //new LargestComponents();
             //new ShortestPath();
             //new IslandCount();
-            new MinIslandCount();
+            //new MinIslandCount();
+            new RoadsAndLibraries();
             /* End of Algo */
 
             //new RoadsAndLibraries();
@@ -32,7 +34,7 @@ namespace Algorithms
 
         private static async void StartTimer()
         {
-            int timeElapsed = 0;
+            timeElapsed = 0;
 
             try
             {
@@ -59,6 +61,8 @@ namespace Algorithms
 
         }
         private static void StopTimer() => cts?.Cancel();
+
+        public static void LogTimer(string prefix) => Console.WriteLine($"{prefix} timeElapsed = {timeElapsed}ms");
     }
 
 }
